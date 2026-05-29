@@ -1,321 +1,817 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>De Plan en Plan - Comunidad Creativa</title>
+    <title>De Plan en Plan | Danza, Maquillaje y Manualidades</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- React & ReactDOM CDNs -->
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <!-- Babel para JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Cinzel, Montserrat y Great Vibes (Manuscrita) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                        cursive: ['Great Vibes', 'cursive'],
+                    },
+                    colors: {
+                        rosegold: {
+                            50: '#FFF5F3',
+                            100: '#FCEAE6',
+                            200: '#F9D3C9',
+                            300: '#F4B2A3',
+                            400: '#EC8E7B',
+                            500: '#E06A53',
+                            600: '#CD4C34',
+                            gold: '#D4AF37',
+                            dark: '#401F1A',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
+        /* Fondo con brillo y degradado de ensueño inspirado en las imágenes */
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #FFF5F3 0%, #FCEAE6 30%, #F8D3C4 70%, #F3BBAF 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
         }
-        h1, h2, h3, h4, .font-serif {
-            font-family: 'Playfair Display', serif;
+
+        /* Animación de brillo/glitter suave en el fondo */
+        .glitter-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(rgba(244,178,163,0.8), rgba(244,178,163,.1) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            opacity: 0.45;
+            animation: glitterMove 40s linear infinite;
         }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+
+        @keyframes glitterMove {
+            from { background-position: 0 0, 40px 60px, 130px 270px; }
+            to { background-position: 550px 1100px, 390px 760px, 380px 870px; }
         }
-        .animate-marquee {
-            animation: marquee 30s linear infinite;
+
+        /* Mariposas flotantes en CSS */
+        .butterfly {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: rgba(236, 142, 123, 0.25);
+            border-radius: 50% 50% 0 50%;
+            transform: rotate(45deg);
+            pointer-events: none;
+            z-index: 1;
+            animation: fly 12s infinite ease-in-out;
         }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+        .butterfly::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: rgba(236, 142, 123, 0.3);
+            border-radius: 50% 50% 50% 0;
+            top: -12px;
+            left: 12px;
+        }
+
+        @keyframes fly {
+            0% { transform: translate(0, 100vh) rotate(45deg) scale(0.6); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translate(120px, -10vh) rotate(15deg) scale(1); opacity: 0; }
+        }
+
+        /* Bordes estilo marco oro de las imágenes */
+        .gold-border {
+            border: 3px double #d4af37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2), inset 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+
+        /* Texto brillante de oro rosa */
+        .sparkle-text {
+            background: linear-gradient(to right, #CD4C34 0%, #D4AF37 50%, #CD4C34 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shineText 4s linear infinite;
+        }
+
+        @keyframes shineText {
+            to { background-position: 200% center; }
+        }
+
+        /* Efecto de revelación interactiva */
+        .card-reveal:hover .reveal-content {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
-<body class="bg-[#FAF9F6] text-stone-800 antialiased">
-    <div id="root"></div>
+<body class="text-rosegold-dark font-sans relative min-h-screen">
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+    <!-- Capa de Brillos -->
+    <div class="glitter-bg"></div>
 
-        // --- Icon Components (Inline SVG for reliability) ---
-        const IconUser = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>;
-        const IconHeart = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>;
-        const IconSparkles = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>;
-        const IconMusic = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>;
-        const IconScissors = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M7 11a3 3 0 101.5-5.598 3 3 0 00-1.5 5.598zm0 0l6 6m1 1a3 3 0 101.5-5.598 3 3 0 00-1.5 5.598zm0 0l-6-6"></path></svg>;
-        const IconSend = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>;
+    <!-- Mariposas animadas de fondo -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none" id="butterflies-container">
+        <div class="butterfly" style="left: 10%; animation-delay: 0s; animation-duration: 15s;"></div>
+        <div class="butterfly" style="left: 30%; animation-delay: 3s; animation-duration: 18s;"></div>
+        <div class="butterfly" style="left: 65%; animation-delay: 1s; animation-duration: 14s;"></div>
+        <div class="butterfly" style="left: 85%; animation-delay: 6s; animation-duration: 20s;"></div>
+    </div>
 
-        const App = () => {
-            const [scrolled, setScrolled] = useState(false);
-            const [formStatus, setFormStatus] = useState('');
+    <!-- Cabecera / Navegación -->
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-white/40 border-b border-rosegold-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2">
+                <!-- Logotipo de luna y estrellas inspirado en las imágenes -->
+                <svg class="w-8 h-8 text-rosegold-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15.5c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5.9.15 1.25.4c-1.35.8-2.25 2.29-2.25 4s.9 3.2 2.25 4c-.35.25-.77.4-1.25.4z"/>
+                    <path d="M19 8l1 1.5L21.5 10l-1.5 1L19 12.5l-1-1.5-1.5-1 1.5-1z" class="animate-pulse"/>
+                </svg>
+                <span class="font-serif font-bold text-lg md:text-xl tracking-wider text-rosegold-600">DE PLAN EN PLAN</span>
+            </a>
+            
+            <!-- Links de Navegación Escritorio -->
+            <div class="hidden md:flex items-center gap-8 font-semibold text-sm tracking-wider uppercase">
+                <a href="#inicio" class="hover:text-rosegold-500 transition-colors">Inicio</a>
+                <a href="#esencia" class="hover:text-rosegold-500 transition-colors">Esencia</a>
+                <a href="#disciplinas" class="hover:text-rosegold-500 transition-colors">Arte</a>
+                <a href="#galeria" class="hover:text-rosegold-500 transition-colors">Galería</a>
+                <a href="#empoderamiento" class="hover:text-rosegold-500 transition-colors">Inspiración</a>
+                <a href="#contacto" class="bg-rosegold-600 text-white px-5 py-2.5 rounded-full hover:bg-rosegold-500 shadow-md transition-all duration-300">Unirme</a>
+            </div>
 
-            useEffect(() => {
-                const handleScroll = () => setScrolled(window.scrollY > 50);
-                window.addEventListener('scroll', handleScroll);
-                return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
+            <!-- Botón Móvil -->
+            <button class="md:hidden text-rosegold-600" id="menu-btn" aria-label="Abrir Menú">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
 
-            const team = [
-                { name: "Coordinadora 1", role: "Gestión y Estrategia", icon: <IconUser />, color: "bg-rose-100 text-rose-600" },
-                { name: "Coordinadora 2", role: "Comunidad y Logística", icon: <IconHeart />, color: "bg-orange-100 text-orange-600" },
-                { name: "Profesor de Danza", role: "Expresión Corporal", icon: <IconMusic />, color: "bg-amber-100 text-amber-600" },
-                { name: "Profesor de Maquillaje", role: "Arte Estético", icon: <IconSparkles />, color: "bg-teal-100 text-teal-600" },
-                { name: "Profesor de Bordados", role: "Textiles y Tradición", icon: <IconScissors />, color: "bg-stone-200 text-stone-600" },
-            ];
+        <!-- Menú Móvil Desplegable -->
+        <div class="hidden md:hidden bg-white/95 border-b border-rosegold-100 px-6 py-4 flex flex-col gap-4 text-center font-semibold" id="mobile-menu">
+            <a href="#inicio" class="block py-2 text-rosegold-dark hover:text-rosegold-500" onclick="toggleMenu()">Inicio</a>
+            <a href="#esencia" class="block py-2 text-rosegold-dark hover:text-rosegold-500" onclick="toggleMenu()">Esencia</a>
+            <a href="#disciplinas" class="block py-2 text-rosegold-dark hover:text-rosegold-500" onclick="toggleMenu()">Arte</a>
+            <a href="#galeria" class="block py-2 text-rosegold-dark hover:text-rosegold-500" onclick="toggleMenu()">Galería</a>
+            <a href="#empoderamiento" class="block py-2 text-rosegold-dark hover:text-rosegold-500" onclick="toggleMenu()">Inspiración</a>
+            <a href="#contacto" class="inline-block py-2.5 bg-rosegold-600 text-white rounded-full" onclick="toggleMenu()">Unirme</a>
+        </div>
+    </nav>
 
-            const workshops = [
-                { title: "Danza Contemporánea", result: "Exploración del movimiento y liberación emocional.", img: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=800" },
-                { title: "Maquillaje Profesional", result: "Transformación y resalte de la belleza natural.", img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=800" },
-                { title: "Bordado Creativo", result: "Creación de piezas únicas con hilos y texturas.", img: "https://images.unsplash.com/photo-1517210122415-b0c70b2a09bf?auto=format&fit=crop&q=80&w=800" }
-            ];
+    <!-- Héroe Principal (Hero Section) -->
+    <section id="inicio" class="relative pt-10 pb-20 md:py-32 px-6 overflow-hidden flex flex-col items-center justify-center">
+        <!-- Ilustración Superior Decorativa -->
+        <div class="flex items-center gap-2 mb-4 text-rosegold-gold">
+            <i data-lucide="sparkles" class="w-5 h-5 animate-bounce"></i>
+            <span class="font-serif tracking-widest text-sm uppercase">CONEXIÓN, ARTE Y MAGIA</span>
+            <i data-lucide="sparkles" class="w-5 h-5 animate-bounce" style="animation-delay: 0.5s"></i>
+        </div>
 
-            const plans = ["Yoga al Aire Libre", "Cata de Vinos y Arte", "Senderismo Femenino", "Taller de Escritura", "Noche de Cine", "Clase de Cerámica"];
+        <!-- Título Inspirado en los Posters -->
+        <h1 class="font-cursive text-rosegold-600 text-5xl md:text-8xl text-center mb-1 leading-none">
+            De plan en plan
+        </h1>
+        <h2 class="font-serif text-3xl md:text-7xl font-bold tracking-widest text-center mb-6 sparkle-text">
+            DANZA, MAQUILLAJE & ARTESANÍA
+        </h2>
+        <p class="font-sans text-lg md:text-2xl text-center text-rosegold-dark max-w-3xl font-light leading-relaxed mb-10 px-4">
+            Un espacio sagrado y creativo para brillar, reconectar con tu fuerza femenina y expresar tu historia a través del movimiento, el lienzo de la piel y las creaciones hechas con el corazón.
+        </p>
 
-            const handleSubmit = (e) => {
-                e.preventDefault();
-                setFormStatus('success');
-                setTimeout(() => setFormStatus(''), 3000);
-            };
+        <!-- Botones de Acción -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center z-10 w-full max-w-md">
+            <a href="#disciplinas" class="w-full sm:w-auto text-center font-semibold bg-rosegold-600 text-white px-8 py-4 rounded-full shadow-lg hover:bg-rosegold-500 hover:scale-105 transition-all duration-300 tracking-wider">
+                EXPLORAR EL TALLER
+            </a>
+            <a href="#contacto" class="w-full sm:w-auto text-center font-semibold border-2 border-rosegold-400 text-rosegold-dark px-8 py-4 rounded-full hover:bg-rosegold-100 hover:border-rosegold-600 transition-all duration-300 tracking-wider">
+                RESERVAR CUPO
+            </a>
+        </div>
 
-            return (
-                <div className="min-h-screen">
-                    {/* Navigation */}
-                    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'glass-nav py-3 shadow-md border-b border-stone-100' : 'bg-transparent py-6'}`}>
-                        <div className="container mx-auto px-6 flex justify-between items-center">
-                            <h1 className="text-xl md:text-2xl font-bold tracking-tighter text-rose-600 uppercase">De Plan en Plan</h1>
-                            <div className="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500">
-                                <a href="#inicio" className="hover:text-rose-500 transition-colors">Inicio</a>
-                                <a href="#equipo" className="hover:text-rose-500 transition-colors">Equipo</a>
-                                <a href="#talleres" className="hover:text-rose-500 transition-colors">Talleres</a>
-                                <a href="#planes" className="hover:text-rose-500 transition-colors">Planes</a>
-                                <a href="#unirse" className="text-rose-600 border-b-2 border-rose-600 pb-1">Unirse</a>
-                            </div>
-                            <button className="md:hidden text-stone-800">
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                            </button>
-                        </div>
-                    </nav>
+        <!-- Luna y Estrellas en el Fondo -->
+        <div class="absolute top-1/4 left-5 md:left-24 opacity-25 md:opacity-50 animate-pulse pointer-events-none">
+            <!-- Icono Luna de las imágenes -->
+            <svg class="w-20 h-20 md:w-40 md:h-40 text-rosegold-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.3 2a10 10 0 0 0-1.9 19.8 10 10 0 1 1 11.8-11.8 10 10 0 0 0-9.9-8z"/>
+            </svg>
+        </div>
+        <div class="absolute top-1/3 right-5 md:right-24 opacity-20 md:opacity-40 pointer-events-none">
+            <i data-lucide="star" class="w-12 h-12 text-rosegold-gold animate-spin" style="animation-duration: 12s;"></i>
+        </div>
+    </section>
 
-                    {/* Banner 1: Hero */}
-                    <section id="inicio" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-                        <div className="absolute top-20 right-[-5%] w-[40%] h-[70%] bg-rose-100 rounded-full blur-[120px] opacity-40 -z-10"></div>
-                        <div className="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-                            <div className="space-y-10">
-                                <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white border border-stone-100 rounded-full shadow-sm">
-                                    <span className="w-2 h-2 bg-rose-500 rounded-full animate-pulse"></span>
-                                    <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400">Iniciativa de Talleres 2024</span>
-                                </div>
-                                <h2 className="text-6xl md:text-8xl font-serif leading-[1.1] text-stone-900">
-                                    Un espacio <br />
-                                    <span className="italic text-rose-500">para ser tú.</span>
-                                </h2>
-                                <p className="text-lg text-stone-500 max-w-md leading-relaxed font-light">
-                                    De Plan en Plan es una comunidad diseñada por y para mujeres. Aquí, la visibilidad de nuestros talentos y la sororidad se entrelazan en cada actividad.
-                                </p>
-                                <div className="flex flex-col sm:flex-row gap-4">
-                                    <a href="#unirse" className="bg-stone-900 text-white px-10 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-rose-600 transition-all text-center shadow-xl shadow-stone-200">
-                                        Comenzar Ahora
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="relative group">
-                                <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]">
-                                    <img src="https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?auto=format&fit=crop&q=80&w=800" alt="Mujeres colaborando" className="w-full aspect-[4/5] object-cover" />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-stone-900/40 to-transparent"></div>
-                                </div>
-                                <div className="absolute -bottom-8 -left-8 bg-white p-8 rounded-[2rem] shadow-2xl z-20 hidden lg:block border border-stone-50">
-                                    <div className="flex items-center space-x-6">
-                                        <div className="bg-rose-50 p-4 rounded-2xl"><IconHeart /></div>
-                                        <div>
-                                            <p className="font-serif text-3xl font-bold text-stone-900">+250</p>
-                                            <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400">Mujeres Activas</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Banner 2: Misión */}
-                    <section className="bg-stone-950 py-32 relative overflow-hidden">
-                        <div className="container mx-auto px-6 text-center max-w-5xl relative z-10">
-                            <h3 className="text-4xl md:text-5xl font-serif text-white mb-12 italic leading-snug">
-                                "Nuestra organización democratiza el acceso al arte y el bienestar personal, creando puentes entre expertas y mujeres con ganas de aprender."
-                            </h3>
-                            <p className="text-stone-400 text-xl font-light leading-relaxed mb-16 max-w-3xl mx-auto">
-                                Somos la suma de cada pincelada, cada paso de baile y cada puntada. Un refugio donde la creatividad no tiene límites y cada plan es una oportunidad de conexión.
-                            </p>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 pt-16 border-t border-white/10">
-                                {[
-                                    {val: "15+", label: "Talleres"},
-                                    {val: "05", label: "Mentorías"},
-                                    {val: "100%", label: "Seguridad"},
-                                    {val: "24/7", label: "Soporte"}
-                                ].map((stat, i) => (
-                                    <div key={i}>
-                                        <p className="text-4xl font-serif text-rose-500 mb-2">{stat.val}</p>
-                                        <p className="text-[10px] uppercase tracking-widest text-stone-500 font-bold">{stat.label}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-rose-900 rounded-full blur-[150px]"></div>
-                        </div>
-                    </section>
-
-                    {/* Profiles Section */}
-                    <section id="equipo" className="py-32 bg-white">
-                        <div className="container mx-auto px-6">
-                            <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-                                <div className="max-w-2xl">
-                                    <h2 className="text-5xl font-serif mb-6 text-stone-900">Nuestras Guías</h2>
-                                    <p className="text-stone-500 text-lg font-light italic">Las mentes brillantes detrás de cada experiencia en De Plan en Plan.</p>
-                                </div>
-                                <div className="h-[1px] flex-grow bg-stone-100 mb-4 mx-8 hidden md:block"></div>
-                            </div>
-                            
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
-                                {team.map((member, i) => (
-                                    <div key={i} className="group">
-                                        <div className={`${member.color} aspect-[3/4] rounded-[2.5rem] mb-8 flex items-center justify-center transition-all duration-500 group-hover:-translate-y-4 shadow-sm group-hover:shadow-2xl relative overflow-hidden`}>
-                                            <div className="scale-150 opacity-20 group-hover:scale-[2] transition-transform duration-700">{member.icon}</div>
-                                            <div className="absolute inset-0 flex items-center justify-center text-current">{member.icon}</div>
-                                        </div>
-                                        <h4 className="text-2xl font-serif text-stone-900 group-hover:text-rose-600 transition-colors">{member.name}</h4>
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mt-2">{member.role}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Workshops Section */}
-                    <section id="talleres" className="py-32 bg-[#F9F8F6]">
-                        <div className="container mx-auto px-6">
-                            <div className="text-center mb-24 space-y-4">
-                                <h2 className="text-5xl font-serif text-stone-900">Experiencias y Resultados</h2>
-                                <p className="text-stone-400 font-light italic text-lg">Testimonios visuales de nuestra evolución creativa.</p>
-                            </div>
-
-                            <div className="grid md:grid-cols-3 gap-16">
-                                {workshops.map((ws, i) => (
-                                    <div key={i} className="bg-white rounded-[3rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-stone-50 group">
-                                        <div className="h-80 overflow-hidden relative">
-                                            <img src={ws.img} alt={ws.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                                            <div className="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors"></div>
-                                        </div>
-                                        <div className="p-12">
-                                            <h4 className="text-3xl font-serif mb-6 text-stone-900">{ws.title}</h4>
-                                            <p className="text-stone-500 leading-relaxed italic mb-8">"{ws.result}"</p>
-                                            <button className="text-rose-500 text-xs font-bold uppercase tracking-widest flex items-center space-x-3 group/btn">
-                                                <span>Ver Galería</span>
-                                                <span className="group-hover/btn:translate-x-2 transition-transform">→</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Scrolling Banner */}
-                    <section id="planes" className="py-24 bg-rose-600 overflow-hidden relative">
-                        <div className="flex animate-marquee whitespace-nowrap items-center">
-                            {[...plans, ...plans].map((plan, i) => (
-                                <div key={i} className="flex items-center mx-12">
-                                    <span className="text-white text-5xl md:text-7xl font-serif italic tracking-tight">{plan}</span>
-                                    <span className="mx-12 text-rose-300">✦</span>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
-
-                    {/* Registration Form */}
-                    <section id="unirse" className="py-32 bg-white">
-                        <div className="container mx-auto px-6">
-                            <div className="max-w-6xl mx-auto flex flex-col lg:flex-row rounded-[4rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border border-stone-50">
-                                <div className="lg:w-2/5 p-16 md:p-24 bg-rose-50 flex flex-col justify-center">
-                                    <h2 className="text-5xl font-serif mb-8 text-stone-900 leading-tight">Tu espacio <br/>te espera.</h2>
-                                    <p className="text-stone-500 text-lg mb-12 font-light leading-relaxed">
-                                        Completa tus datos para recibir la agenda mensual de talleres y beneficios exclusivos para la comunidad.
-                                    </p>
-                                    <div className="space-y-6">
-                                        <div className="flex items-center space-x-4">
-                                            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm"><IconHeart /></div>
-                                            <span className="text-sm font-semibold text-rose-600 italic">@deplanenplan</span>
-                                        </div>
-                                        <p className="text-[10px] uppercase tracking-widest font-bold text-stone-400 mt-4">Bogotá, Colombia • 2024</p>
-                                    </div>
-                                </div>
-                                
-                                <div className="lg:w-3/5 p-16 md:p-24 bg-white relative">
-                                    {formStatus === 'success' ? (
-                                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-white z-10 animate-in fade-in duration-500">
-                                            <div className="w-20 h-20 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center mb-6">
-                                                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
-                                            </div>
-                                            <h4 className="text-3xl font-serif mb-2">¡Bienvenida!</h4>
-                                            <p className="text-stone-400">Te hemos enviado un correo de bienvenida.</p>
-                                        </div>
-                                    ) : (
-                                        <form className="space-y-10" onSubmit={handleSubmit}>
-                                            <div className="grid md:grid-cols-2 gap-10">
-                                                <div className="relative">
-                                                    <input type="text" required className="w-full border-b-2 border-stone-100 py-4 focus:border-rose-500 outline-none transition-colors bg-transparent peer" placeholder=" " />
-                                                    <label className="absolute left-0 top-4 text-stone-400 text-xs uppercase tracking-widest font-bold pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-rose-500 peer-[:not(:placeholder-shown)]:-top-4">Nombre Completo</label>
-                                                </div>
-                                                <div className="relative">
-                                                    <input type="email" required className="w-full border-b-2 border-stone-100 py-4 focus:border-rose-500 outline-none transition-colors bg-transparent peer" placeholder=" " />
-                                                    <label className="absolute left-0 top-4 text-stone-400 text-xs uppercase tracking-widest font-bold pointer-events-none transition-all peer-focus:-top-4 peer-focus:text-rose-500 peer-[:not(:placeholder-shown)]:-top-4">Tu Correo</label>
-                                                </div>
-                                            </div>
-                                            <div className="relative">
-                                                <select className="w-full border-b-2 border-stone-100 py-4 focus:border-rose-500 outline-none transition-colors bg-transparent appearance-none cursor-pointer text-stone-600">
-                                                    <option>Selecciona tu taller favorito</option>
-                                                    <option>Danza Contemporánea</option>
-                                                    <option>Maquillaje</option>
-                                                    <option>Bordado</option>
-                                                </select>
-                                                <div className="absolute right-0 top-6 pointer-events-none">
-                                                    <svg className="w-4 h-4 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                                                </div>
-                                            </div>
-                                            <div className="pt-8">
-                                                <button className="w-full bg-rose-600 text-white py-6 rounded-[2rem] font-bold uppercase tracking-[0.2em] text-[10px] flex items-center justify-center space-x-4 hover:bg-rose-700 transition-all shadow-2xl shadow-rose-200 group">
-                                                    <span>Enviar Solicitud</span>
-                                                    <IconSend />
-                                                </button>
-                                            </div>
-                                        </form>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Footer */}
-                    <footer className="bg-stone-50 py-20 border-t border-stone-100">
-                        <div className="container mx-auto px-6 text-center">
-                            <h2 className="text-2xl font-bold tracking-tighter text-stone-300 mb-10 uppercase">De Plan en Plan</h2>
-                            <div className="flex justify-center space-x-12 mb-12">
-                                {['Instagram', 'Facebook', 'LinkedIn', 'Pinterest'].map(social => (
-                                    <a key={social} href="#" className="text-[10px] font-bold uppercase tracking-widest text-stone-400 hover:text-rose-500 transition-colors">{social}</a>
-                                ))}
-                            </div>
-                            <p className="text-stone-300 text-[10px] uppercase tracking-widest">© 2024 DE PLAN EN PLAN • COMUNIDAD CREATIVA • BOGOTÁ</p>
-                        </div>
-                    </footer>
+    <!-- Sección de Esencia y Manifiesto (Inspirado en los carteles de los dibujos) -->
+    <section id="esencia" class="py-20 px-6 bg-white/30 backdrop-blur-sm border-y border-rosegold-200">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Tarjeta Mensaje 1: Confía, Brilla, Inspira -->
+            <div class="gold-border bg-white/75 p-8 rounded-2xl flex flex-col justify-between items-center text-center transform hover:scale-[1.03] transition-transform duration-300">
+                <div class="text-rosegold-gold mb-6">
+                    <i data-lucide="sparkle" class="w-10 h-10 animate-spin" style="animation-duration: 6s"></i>
                 </div>
-            );
-        };
+                <div>
+                    <h3 class="font-serif text-2xl font-bold mb-4 tracking-wider text-rosegold-600">CONFÍA</h3>
+                    <p class="font-cursive text-4xl text-rosegold-500 mb-2">Brilla, Inspira</p>
+                    <p class="font-serif text-lg tracking-widest text-rosegold-gold font-bold">EMPODÉRATE</p>
+                </div>
+                <div class="mt-8">
+                    <i data-lucide="heart" class="w-6 h-6 text-rosegold-400 fill-rosegold-300"></i>
+                </div>
+            </div>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+            <!-- Tarjeta Mensaje 2: Manifiesto Central -->
+            <div class="bg-gradient-to-b from-rosegold-100 to-rosegold-50 p-8 rounded-2xl flex flex-col justify-center items-center text-center shadow-xl relative overflow-hidden border border-rosegold-200">
+                <div class="absolute -top-6 -right-6 text-rosegold-200 pointer-events-none">
+                    <i data-lucide="sun" class="w-24 h-24"></i>
+                </div>
+                <h3 class="font-serif text-xl font-semibold tracking-widest text-rosegold-600 mb-6 uppercase">Nuestra Misión</h3>
+                <p class="font-sans text-rosegold-dark text-base md:text-lg leading-relaxed mb-6 italic">
+                    "Creamos espacios donde el arte no es solo técnica, sino un viaje hacia tu interior. Cada pincelada, cada movimiento de danza y cada hilo tejido es una celebración de tu existencia única."
+                </p>
+                <div class="w-12 h-0.5 bg-rosegold-400 mb-4"></div>
+                <span class="font-serif text-xs tracking-wider text-rosegold-500">COLECTIVO DE PLAN EN PLAN</span>
+            </div>
+
+            <!-- Tarjeta Mensaje 3: Eres Única, Poderosa -->
+            <div class="gold-border bg-white/75 p-8 rounded-2xl flex flex-col justify-between items-center text-center transform hover:scale-[1.03] transition-transform duration-300">
+                <div class="text-rosegold-gold mb-6">
+                    <i data-lucide="heart-handshake" class="w-10 h-10"></i>
+                </div>
+                <div>
+                    <h3 class="font-serif text-2xl font-bold mb-4 tracking-wider text-rosegold-600">ERES ÚNICA</h3>
+                    <p class="font-cursive text-4xl text-rosegold-500 mb-2">Eres creadora</p>
+                    <p class="font-serif text-lg tracking-widest text-rosegold-gold font-bold">ERES PODEROSA</p>
+                </div>
+                <div class="mt-8">
+                    <i data-lucide="heart" class="w-6 h-6 text-rosegold-400 fill-rosegold-300"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disciplinas Artísticas (Las Tres Ramas del Grupo) -->
+    <section id="disciplinas" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <span class="text-rosegold-gold font-semibold tracking-widest text-sm uppercase block mb-2">Descubre Nuestros Saberes</span>
+            <h2 class="font-serif text-4xl md:text-6xl font-bold tracking-wider text-rosegold-600">Tres Senderos, Una Sola Alma</h2>
+            <div class="w-24 h-1 bg-rosegold-400 mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <!-- Disciplina 1: Maquillaje Artístico -->
+            <div class="bg-white/80 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-rosegold-100 flex flex-col justify-between">
+                <div>
+                    <div class="relative h-72 bg-gradient-to-tr from-rosegold-200 to-rosegold-100 flex items-center justify-center overflow-hidden">
+                        <!-- Recreación estilizada del tocador de maquillaje del poster -->
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.8)_0%,transparent_100%)]"></div>
+                        <div class="z-10 text-center px-6">
+                            <!-- Espejo de luces decorativo en SVG para ilustrar la disciplina -->
+                            <svg class="w-32 h-32 mx-auto text-rosegold-600 mb-4" viewBox="0 0 100 100" fill="none">
+                                <circle cx="50" cy="45" r="30" stroke="currentColor" stroke-width="2" stroke-dasharray="4,4"/>
+                                <rect x="30" y="75" width="40" height="5" rx="2.5" fill="currentColor"/>
+                                <line x1="50" y1="75" x2="50" y2="85" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="50" cy="15" r="3" fill="#D4AF37"/>
+                                <circle cx="20" cy="45" r="3" fill="#D4AF37"/>
+                                <circle cx="80" cy="45" r="3" fill="#D4AF37"/>
+                                <circle cx="29" cy="24" r="3" fill="#D4AF37"/>
+                                <circle cx="71" cy="24" r="3" fill="#D4AF37"/>
+                            </svg>
+                            <span class="font-cursive text-3xl text-rosegold-600">El lienzo de tu piel</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 flex justify-between text-xs text-rosegold-gold uppercase font-semibold">
+                            <span>Brillo & Textura</span>
+                            <span>Transformación</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-2 mb-3">
+                            <i data-lucide="brush" class="w-5 h-5 text-rosegold-gold"></i>
+                            <h3 class="font-serif text-2xl font-bold text-rosegold-600">Maquillaje Artístico</h3>
+                        </div>
+                        <p class="text-rosegold-dark font-light leading-relaxed mb-6">
+                            Exploramos el maquillaje como una herramienta de empoderamiento y transmutación. Desde sutiles toques dorados hasta complejas creaciones artísticas corporales y teatrales que revelan tu fuerza divina interna.
+                        </p>
+                        <ul class="space-y-2 text-sm text-rosegold-dark">
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-rosegold-gold"></i> Talleres de automaquillaje consciente
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-rosegold-gold"></i> Caracterización y fantasía con pedrería
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-rosegold-gold"></i> Glitter bar y experiencias mágicas para eventos
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="p-8 pt-0">
+                    <a href="#contacto" class="block text-center font-semibold bg-rosegold-100 hover:bg-rosegold-200 text-rosegold-600 py-3 rounded-xl transition-colors duration-300">
+                        Saber más
+                    </a>
+                </div>
+            </div>
+
+            <!-- Disciplina 2: Danza y Poder Femenino -->
+            <div class="bg-white/80 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-rosegold-200 flex flex-col justify-between transform lg:-translate-y-4">
+                <div>
+                    <div class="relative h-72 bg-gradient-to-tr from-rosegold-300 to-rosegold-100 flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.8)_0%,transparent_100%)]"></div>
+                        <div class="z-10 text-center px-6">
+                            <!-- Silueta bailarina inspirada en el poster de danza -->
+                            <svg class="w-32 h-32 mx-auto text-rosegold-600 mb-4 animate-pulse" viewBox="0 0 100 100" fill="none">
+                                <path d="M50 20C53 20 55 18 55 15C55 12 53 10 50 10C47 10 45 12 45 15C45 18 47 20 50 20Z" fill="currentColor"/>
+                                <path d="M50 25C40 28 20 45 15 50C25 50 35 45 45 35V75L30 90L50 80L70 90L55 75V35C65 45 75 50 85 50C80 45 60 28 50 25Z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="font-cursive text-3xl text-rosegold-600">Ritmo en tus venas</span>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-rosegold-gold text-white text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold">
+                            Estrella del mes
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-2 mb-3">
+                            <i data-lucide="music" class="w-5 h-5 text-rosegold-gold"></i>
+                            <h3 class="font-serif text-2xl font-bold text-rosegold-600">Danza & Poder Femenino</h3>
+                        </div>
+                        <p class="text-rosegold-dark font-light leading-relaxed mb-6">
+                            Conecta con la sabiduría ancestral del cuerpo. A través de la danza oriental, fusión tribal y el movimiento libre, liberamos bloqueos físicos y mentales, celebrando la sensualidad y soberanía corporal.
+                        </p>
+                        <ul class="space-y-2 text-sm text-rosegold-dark">
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-rosegold-gold"></i> Danza terapia y círculos de movimiento
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-rosegold-gold"></i> Danza del vientre y fusiones contemporáneas
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-rosegold-gold"></i> Coreografía grupal e interpretaciones místicas
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="p-8 pt-0">
+                    <a href="#contacto" class="block text-center font-semibold bg-rosegold-600 hover:bg-rosegold-500 text-white py-3 rounded-xl transition-colors duration-300 shadow-md">
+                        Unirme al Círculo
+                    </a>
+                </div>
+            </div>
+
+            <!-- Disciplina 3: Manualidades y Creación -->
+            <div class="bg-white/80 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-rosegold-100 flex flex-col justify-between">
+                <div>
+                    <div class="relative h-72 bg-gradient-to-tr from-rosegold-200 to-rosegold-100 flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.8)_0%,transparent_100%)]"></div>
+                        <div class="z-10 text-center px-6">
+                            <!-- Ilustración bastidor/crochet del poster de manualidades -->
+                            <svg class="w-32 h-32 mx-auto text-rosegold-600 mb-4" viewBox="0 0 100 100" fill="none">
+                                <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="2"/>
+                                <path d="M25 50C25 35 35 25 50 25C65 25 75 35 75 50C75 65 65 75 50 75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M40 35 L40 65 L60 65" stroke="currentColor" stroke-width="2"/>
+                                <path d="M35 35 Q50 20 65 35 Q80 50 65 65 Q50 80 35 65" stroke="#D4AF37" stroke-width="1" fill="none"/>
+                            </svg>
+                            <span class="font-cursive text-3xl text-rosegold-600">Amor hecho a mano</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 flex justify-between text-xs text-rosegold-gold uppercase font-semibold">
+                            <span>Sostenible & Lento</span>
+                            <span>Meditación Activa</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-2 mb-3">
+                            <i data-lucide="scissors" class="w-5 h-5 text-rosegold-gold"></i>
+                            <h3 class="font-serif text-2xl font-bold text-rosegold-600">Manualidades & Tejidos</h3>
+                        </div>
+                        <p class="text-rosegold-dark font-light leading-relaxed mb-6">
+                            El tejido, el bordado y la alfarería suave como formas de meditación activa. Cada puntada cuenta una historia y cada pieza manufacturada se transforma en un amuleto personal cargado de amor propio.
+                        </p>
+                        <ul class="space-y-2 text-sm text-rosegold-dark">
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-rosegold-gold"></i> Crochet, macramé y lanas naturales
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-rosegold-gold"></i> Bastidores bordados con afirmaciones
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-rosegold-gold"></i> Creación de amuletos y decoración mística
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="p-8 pt-0">
+                    <a href="#contacto" class="block text-center font-semibold bg-rosegold-100 hover:bg-rosegold-200 text-rosegold-600 py-3 rounded-xl transition-colors duration-300">
+                        Saber más
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería con Filtros Dinámicos (Inspirado en el porfolio del grupo) -->
+    <section id="galeria" class="py-24 px-6 bg-white/40 border-t border-rosegold-100">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-rosegold-gold font-semibold tracking-widest text-sm uppercase block mb-2">Galería de Creaciones</span>
+                <h2 class="font-serif text-3xl md:text-5xl font-bold tracking-wider text-rosegold-600">Nuestro Legado Visual</h2>
+                <div class="w-16 h-0.5 bg-rosegold-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Filtros de Galería -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12" id="gallery-filters">
+                <button onclick="filterGallery('todas')" class="filter-btn active bg-rosegold-600 text-white px-6 py-2 rounded-full shadow-md text-sm font-semibold tracking-wider uppercase transition-all duration-300">
+                    Todas
+                </button>
+                <button onclick="filterGallery('maquillaje')" class="filter-btn bg-white text-rosegold-600 border border-rosegold-200 hover:bg-rosegold-100 px-6 py-2 rounded-full text-sm font-semibold tracking-wider uppercase transition-all duration-300">
+                    Maquillaje
+                </button>
+                <button onclick="filterGallery('danza')" class="filter-btn bg-white text-rosegold-600 border border-rosegold-200 hover:bg-rosegold-100 px-6 py-2 rounded-full text-sm font-semibold tracking-wider uppercase transition-all duration-300">
+                    Danza
+                </button>
+                <button onclick="filterGallery('manualidades')" class="filter-btn bg-white text-rosegold-600 border border-rosegold-200 hover:bg-rosegold-100 px-6 py-2 rounded-full text-sm font-semibold tracking-wider uppercase transition-all duration-300">
+                    Manualidades
+                </button>
+            </div>
+
+            <!-- Grilla de Galería -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
+                <!-- Item 1: Maquillaje -->
+                <div class="gallery-item item-maquillaje relative group overflow-hidden rounded-2xl gold-border shadow-md aspect-square bg-gradient-to-br from-rosegold-200 to-rosegold-300">
+                    <!-- Representación de Maquillaje de Ojos con Glitter -->
+                    <div class="absolute inset-0 flex flex-col justify-between p-6 bg-black/10 group-hover:bg-black/40 transition-colors duration-300">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-white/80 text-rosegold-600 text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold">Taller</span>
+                            <i data-lucide="sparkles" class="w-6 h-6 text-rosegold-gold animate-pulse"></i>
+                        </div>
+                        <div class="text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h4 class="font-serif text-xl font-bold mb-1">Miradas de Oro Rosa</h4>
+                            <p class="text-xs text-rosegold-100 font-light">Maquillaje con incrustaciones de perlas y destellos metálicos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: Danza -->
+                <div class="gallery-item item-danza relative group overflow-hidden rounded-2xl gold-border shadow-md aspect-square bg-gradient-to-br from-rosegold-300 to-rosegold-400">
+                    <!-- Representación de Danza con Velo -->
+                    <div class="absolute inset-0 flex flex-col justify-between p-6 bg-black/10 group-hover:bg-black/40 transition-colors duration-300">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-white/80 text-rosegold-600 text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold">Presentación</span>
+                            <i data-lucide="music" class="w-6 h-6 text-rosegold-gold"></i>
+                        </div>
+                        <div class="text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h4 class="font-serif text-xl font-bold mb-1">Danza del Fuego Interior</h4>
+                            <p class="text-xs text-rosegold-100 font-light">Ritmos orientales fusionados con elementos teatrales y velos etéreos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3: Manualidades -->
+                <div class="gallery-item item-manualidades relative group overflow-hidden rounded-2xl gold-border shadow-md aspect-square bg-gradient-to-br from-rosegold-100 to-rosegold-200">
+                    <!-- Representación de Bordado -->
+                    <div class="absolute inset-0 flex flex-col justify-between p-6 bg-black/10 group-hover:bg-black/40 transition-colors duration-300">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-white/80 text-rosegold-600 text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold">Hecho a mano</span>
+                            <i data-lucide="scissors" class="w-6 h-6 text-rosegold-gold"></i>
+                        </div>
+                        <div class="text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h4 class="font-serif text-xl font-bold mb-1">Amuleto en Bastidor</h4>
+                            <p class="text-xs text-rosegold-100 font-light">Bordado con hilos metálicos dorados sobre tela de lino rosa.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4: Maquillaje -->
+                <div class="gallery-item item-maquillaje relative group overflow-hidden rounded-2xl gold-border shadow-md aspect-square bg-gradient-to-br from-rosegold-400 to-rosegold-200">
+                    <div class="absolute inset-0 flex flex-col justify-between p-6 bg-black/10 group-hover:bg-black/40 transition-colors duration-300">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-white/80 text-rosegold-600 text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold">Sesión de fotos</span>
+                            <i data-lucide="sparkles" class="w-6 h-6 text-rosegold-gold"></i>
+                        </div>
+                        <div class="text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h4 class="font-serif text-xl font-bold mb-1">Diosa Lunar</h4>
+                            <p class="text-xs text-rosegold-100 font-light">Maquillaje de fantasía con una corona hecha a mano de cristales.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5: Danza -->
+                <div class="gallery-item item-danza relative group overflow-hidden rounded-2xl gold-border shadow-md aspect-square bg-gradient-to-br from-rosegold-200 to-rosegold-100">
+                    <div class="absolute inset-0 flex flex-col justify-between p-6 bg-black/10 group-hover:bg-black/40 transition-colors duration-300">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-white/80 text-rosegold-600 text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold">Círculo Sagrado</span>
+                            <i data-lucide="users" class="w-6 h-6 text-rosegold-gold"></i>
+                        </div>
+                        <div class="text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h4 class="font-serif text-xl font-bold mb-1">Conexión de Danzantes</h4>
+                            <p class="text-xs text-rosegold-100 font-light">Círculo de mujeres compartiendo movimiento y ritmo sanador.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 6: Manualidades -->
+                <div class="gallery-item item-manualidades relative group overflow-hidden rounded-2xl gold-border shadow-md aspect-square bg-gradient-to-br from-rosegold-300 to-rosegold-500">
+                    <div class="absolute inset-0 flex flex-col justify-between p-6 bg-black/10 group-hover:bg-black/40 transition-colors duration-300">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-white/80 text-rosegold-600 text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold">Taller</span>
+                            <i data-lucide="heart" class="w-6 h-6 text-rosegold-gold"></i>
+                        </div>
+                        <div class="text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <h4 class="font-serif text-xl font-bold mb-1">Tejiendo el Amor Propio</h4>
+                            <p class="text-xs text-rosegold-100 font-light">Corazones tejidos a mano utilizando hilados orgánicos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Generador Interactivo de Afirmaciones "Rincón de Empoderamiento" -->
+    <section id="empoderamiento" class="py-24 px-6 relative bg-gradient-to-b from-rosegold-100/40 to-rosegold-50/20">
+        <!-- Decoración luna y mariposa -->
+        <div class="absolute left-8 bottom-12 opacity-30 pointer-events-none">
+            <svg class="w-24 h-24 text-rosegold-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15.5c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5.9.15 1.25.4c-1.35.8-2.25 2.29-2.25 4s.9 3.2 2.25 4c-.35.25-.77.4-1.25.4z"/>
+            </svg>
+        </div>
+
+        <div class="max-w-4xl mx-auto gold-border bg-white/80 p-10 md:p-16 rounded-3xl shadow-xl text-center relative overflow-hidden">
+            <div class="absolute top-4 right-4 text-rosegold-gold opacity-60">
+                <i data-lucide="sparkles" class="w-8 h-8 animate-pulse"></i>
+            </div>
+
+            <span class="text-rosegold-gold font-semibold tracking-widest text-xs uppercase block mb-3">Tú eres mágica</span>
+            <h2 class="font-serif text-2xl md:text-4xl font-bold text-rosegold-600 mb-8">Rincón de Poder Femenino</h2>
+            
+            <div class="min-h-[140px] flex flex-col justify-center items-center px-4 mb-8">
+                <!-- Afirmación que irá cambiando dinámicamente -->
+                <p id="affirmation-text" class="font-cursive text-4xl md:text-5xl text-rosegold-dark leading-tight select-none">
+                    "Confía, Brilla, Inspira, Empodérate."
+                </p>
+                <p id="affirmation-subtext" class="text-sm font-semibold text-rosegold-gold mt-4 uppercase tracking-wider select-none">
+                    Lema del Círculo
+                </p>
+            </div>
+
+            <!-- Botón Mágico con Destellos -->
+            <button onclick="generateAffirmation()" class="px-8 py-3.5 bg-rosegold-600 text-white rounded-full font-semibold shadow-lg hover:bg-rosegold-500 hover:scale-105 active:scale-95 transition-all duration-300 tracking-wider inline-flex items-center gap-2">
+                <i data-lucide="sparkle" class="w-4 h-4"></i>
+                Descubrir Mi Afirmación
+                <i data-lucide="sparkle" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto y Reserva (Inscripciones de talleres) -->
+    <section id="contacto" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 bg-white/70 rounded-3xl p-8 md:p-16 border border-rosegold-100 shadow-xl">
+            
+            <!-- Columna Informativa de Talleres -->
+            <div class="lg:col-span-5 flex flex-col justify-between">
+                <div>
+                    <span class="text-rosegold-gold font-semibold tracking-widest text-sm uppercase block mb-2">Comienza tu viaje</span>
+                    <h2 class="font-serif text-3xl md:text-5xl font-bold text-rosegold-600 mb-6 leading-tight">Únete a nuestro círculo de arte</h2>
+                    <p class="text-rosegold-dark font-light leading-relaxed mb-8">
+                        ¿Quieres aprender técnicas de maquillaje, bailar bajo la luna o tejer con sentido? Reserva un lugar en nuestros talleres mensuales o agenda un show artístico para tu evento corporativo/privado.
+                    </p>
+                    
+                    <!-- Información de Contacto Directo -->
+                    <div class="space-y-4 text-sm font-semibold">
+                        <div class="flex items-center gap-4">
+                            <span class="w-10 h-10 rounded-full bg-rosegold-100 flex items-center justify-center text-rosegold-600">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <p class="text-xs text-rosegold-400 uppercase tracking-widest font-normal">Escríbenos</p>
+                                <p class="text-rosegold-dark">hola@deplanenplan.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="w-10 h-10 rounded-full bg-rosegold-100 flex items-center justify-center text-rosegold-600">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <p class="text-xs text-rosegold-400 uppercase tracking-widest font-normal">Encuéntranos</p>
+                                <p class="text-rosegold-dark">Estudio de Plan en Plan, Colombia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Redes Sociales inspiradas en los corazones e iconos de los posters -->
+                <div class="mt-12 lg:mt-0 pt-8 border-t border-rosegold-200">
+                    <p class="font-serif text-sm text-rosegold-gold font-bold tracking-widest mb-4 uppercase">Sigue la magia en redes</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-11 h-11 rounded-full bg-rosegold-100 text-rosegold-600 hover:bg-rosegold-600 hover:text-white flex items-center justify-center transition-all duration-300">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-11 h-11 rounded-full bg-rosegold-100 text-rosegold-600 hover:bg-rosegold-600 hover:text-white flex items-center justify-center transition-all duration-300">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-11 h-11 rounded-full bg-rosegold-100 text-rosegold-600 hover:bg-rosegold-600 hover:text-white flex items-center justify-center transition-all duration-300">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario de Inscripción y Contacto -->
+            <div class="lg:col-span-7 bg-white p-8 md:p-12 rounded-2xl border-2 border-rosegold-100 shadow-md">
+                <form id="contact-form" onsubmit="submitForm(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block text-xs uppercase tracking-widest font-semibold text-rosegold-500 mb-2">Tu Nombre Completo</label>
+                            <input type="text" id="name" required class="w-full bg-rosegold-50 border border-rosegold-200 focus:border-rosegold-500 focus:outline-none rounded-xl px-4 py-3 text-sm text-rosegold-dark transition-colors" placeholder="Ej: Valentina Morales">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-xs uppercase tracking-widest font-semibold text-rosegold-500 mb-2">Correo Electrónico</label>
+                            <input type="email" id="email" required class="w-full bg-rosegold-50 border border-rosegold-200 focus:border-rosegold-500 focus:outline-none rounded-xl px-4 py-3 text-sm text-rosegold-dark transition-colors" placeholder="valen@ejemplo.com">
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="interest" class="block text-xs uppercase tracking-widest font-semibold text-rosegold-500 mb-2">¿Cuál es tu área de interés?</label>
+                        <select id="interest" required class="w-full bg-rosegold-50 border border-rosegold-200 focus:border-rosegold-500 focus:outline-none rounded-xl px-4 py-3 text-sm text-rosegold-dark transition-colors">
+                            <option value="">-- Elige una senda artística --</option>
+                            <option value="maquillaje">Maquillaje Artístico</option>
+                            <option value="danza">Danza & Círculo Femenino</option>
+                            <option value="manualidades">Manualidades & Tejidos con Amor Propio</option>
+                            <option value="todos">Todos los Planes</option>
+                            <option value="evento">Contratación para Eventos Especiales</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="message" class="block text-xs uppercase tracking-widest font-semibold text-rosegold-500 mb-2">Cuéntanos un poco de ti</label>
+                        <textarea id="message" rows="4" class="w-full bg-rosegold-50 border border-rosegold-200 focus:border-rosegold-500 focus:outline-none rounded-xl px-4 py-3 text-sm text-rosegold-dark transition-colors" placeholder="Escribe tus intenciones, preguntas o detalles del show que buscas..."></textarea>
+                    </div>
+
+                    <div class="mb-8 flex items-start gap-3">
+                        <input type="checkbox" id="consent" required class="mt-1 accent-rosegold-600 rounded">
+                        <label for="consent" class="text-xs text-rosegold-dark font-light leading-normal">
+                            Acepto recibir invitaciones a talleres exclusivos de empoderamiento y novedades artísticas de De Plan en Plan.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 bg-rosegold-600 text-white font-semibold rounded-xl shadow-lg hover:bg-rosegold-500 hover:shadow-xl hover:scale-[1.01] transition-all duration-300 tracking-wider">
+                        ENVIAR MI MENSAJE
+                    </button>
+                </form>
+
+                <!-- Toast de éxito hecho con HTML oculto -->
+                <div id="toast-success" class="hidden mt-6 p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-sm flex items-center gap-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-600 shrink-0"></i>
+                    <div>
+                        <p class="font-semibold">¡Mensaje enviado con destellos de éxito!</p>
+                        <p class="font-light text-xs">Te responderemos pronto para planificar juntas tu senda creativa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de Página (Footer) -->
+    <footer class="bg-rosegold-dark text-rosegold-100 py-16 px-6 text-center border-t border-rosegold-600/30">
+        <div class="max-w-4xl mx-auto flex flex-col items-center">
+            <!-- Logo Moon Decorativo -->
+            <svg class="w-12 h-12 text-rosegold-gold mb-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.3 2a10 10 0 0 0-1.9 19.8 10 10 0 1 1 11.8-11.8 10 10 0 0 0-9.9-8z"/>
+            </svg>
+            <h3 class="font-serif text-2xl font-bold tracking-widest text-rosegold-gold mb-2">DE PLAN EN PLAN</h3>
+            <p class="font-cursive text-3xl text-rosegold-200 mb-6">Arte, sororidad y magia hecha a mano.</p>
+            
+            <div class="w-24 h-0.5 bg-rosegold-500/50 mb-8"></div>
+
+            <p class="text-xs text-rosegold-300 font-light tracking-wider leading-relaxed">
+                Diseñado con amor y empoderamiento inspirado en las divas, lunas y mariposas de nuestra propia esencia.<br>
+                &copy; 2026 De Plan en Plan. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts Interactivos -->
+    <script>
+        // Inicializar Iconos Lucide
+        lucide.createIcons();
+
+        // Control de Menú Móvil
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        function toggleMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+
+        // Listado de afirmaciones extraídas de los carteles y pensadas para potenciar el espíritu femenino
+        const affirmations = [
+            { text: '"Confía, Brilla, Inspira, Empodérate."', sub: "Lema Principal" },
+            { text: '"Cada creación cuenta una historia de amor propio."', sub: "Filosofía de las Manualidades" },
+            { text: '"Eres única, eres poderosa, eres creadora de tu destino."', sub: "Lema de Danza & Maquillaje" },
+            { text: '"Tu cuerpo es un lienzo de luz; píntalo con tus verdaderos colores."', sub: "Meditación de Maquillaje" },
+            { text: '"Baila para liberar el alma y sanar el corazón."', sub: "Manifiesto de Danza" },
+            { text: '"En cada hilo que tejes, conectas con la paciencia de tu ser interior."', sub: "Manualidades de Amor Propio" },
+            { text: '"No esperes el momento perfecto: créalo y brilla sin pedir permiso."', sub: "Inspiración del Círculo" }
+        ];
+
+        let lastIndex = 0;
+
+        function generateAffirmation() {
+            const textEl = document.getElementById('affirmation-text');
+            const subtextEl = document.getElementById('affirmation-subtext');
+            
+            // Animación de desvanecimiento rápida
+            textEl.style.opacity = '0';
+            subtextEl.style.opacity = '0';
+            textEl.style.transform = 'scale(0.95)';
+
+            setTimeout(() => {
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * affirmations.length);
+                } while (randomIndex === lastIndex);
+                
+                lastIndex = randomIndex;
+                const nextAffirmation = affirmations[randomIndex];
+
+                textEl.innerText = nextAffirmation.text;
+                subtextEl.innerText = nextAffirmation.sub;
+
+                // Animación de reaparición con destello
+                textEl.style.opacity = '1';
+                subtextEl.style.opacity = '1';
+                textEl.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        // Filtros de Galería Dinámica
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Actualizar botones
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-rosegold-600', 'text-white', 'shadow-md');
+                btn.classList.add('bg-white', 'text-rosegold-600', 'border', 'border-rosegold-200');
+            });
+
+            // Encontrar el botón clickeado
+            const activeBtn = event.currentTarget;
+            activeBtn.classList.remove('bg-white', 'text-rosegold-600', 'border', 'border-rosegold-200');
+            activeBtn.classList.add('bg-rosegold-600', 'text-white', 'shadow-md');
+
+            // Filtrar elementos de grilla
+            items.forEach(item => {
+                if (category === 'todas') {
+                    item.style.display = 'block';
+                    setTimeout(() => item.style.opacity = '1', 50);
+                } else {
+                    if (item.classList.contains('item-' + category)) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.style.opacity = '1', 50);
+                    } else {
+                        item.style.opacity = '0';
+                        setTimeout(() => item.style.display = 'none', 300);
+                    }
+                }
+            });
+        }
+
+        // Simulación de envío de formulario sin alerts
+        function submitForm(event) {
+            event.preventDefault();
+            const form = document.getElementById('contact-form');
+            const toast = document.getElementById('toast-success');
+            
+            // Animación de envío exitoso
+            toast.classList.remove('hidden');
+            form.reset();
+
+            // Ocultar el toast automáticamente tras 6 segundos
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 6000);
+        }
     </script>
 </body>
 </html>
