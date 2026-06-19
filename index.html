@@ -33,6 +33,12 @@
                             600: '#CD4C34',
                             gold: '#D4AF37',
                             dark: '#401F1A',
+                        },
+                        doodle: {
+                            turquoise: '#2ec4b6',
+                            pink: '#d81e5b',
+                            yellow: '#ffd54f',
+                            dark: '#111111'
                         }
                     }
                 }
@@ -140,42 +146,81 @@
         <div class="butterfly" style="left: 85%; animation-delay: 6s; animation-duration: 20s;"></div>
     </div>
 
-    <!-- Cabecera / Navegación -->
-    <nav class="sticky top-0 z-50 backdrop-blur-md bg-white/40 border-b border-rosegold-200 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-2">
-                <!-- Logotipo de luna y estrellas inspirado en las imágenes -->
-                <svg class="w-8 h-8 text-rosegold-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15.5c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5.9.15 1.25.4c-1.35.8-2.25 2.29-2.25 4s.9 3.2 2.25 4c-.35.25-.77.4-1.25.4z"/>
-                    <path d="M19 8l1 1.5L21.5 10l-1.5 1L19 12.5l-1-1.5-1.5-1 1.5-1z" class="animate-pulse"/>
-                </svg>
-                <span class="font-serif font-bold text-lg md:text-xl tracking-wider text-rosegold-600">DE PLAN EN PLAN</span>
+    <!-- Cabecera / Navegación Inspirada en la Propuesta -->
+    <nav class="sticky top-0 z-50 transition-all duration-300 w-full relative">
+        <!-- Fondo Artístico Doodle SVG (Inspirado en la imagen_e9afeb.png) -->
+        <div class="absolute inset-0 w-full h-full overflow-hidden z-0">
+            <svg class="w-full h-full object-cover min-h-[75px] md:min-h-[85px]" viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <!-- Capa Base Turquesa -->
+                <rect width="1440" height="100" fill="#2ec4b6"/>
+                
+                <!-- Formas Orgánicas Magenta, Amarillo y Negro estilo Doodle Art -->
+                <path d="M0 0C100 20 180 5 250 40C320 75 410 20 490 60C570 100 680 15 760 50C840 85 920 10 1020 30C1120 50 1200 85 1310 40C1420 -5 1390 90 1440 100V0H0Z" fill="#d81e5b" opacity="0.85"/>
+                <path d="M120 100C220 80 340 10 420 50C500 90 610 30 720 70C830 110 940 20 1050 60C1160 100 1280 40 1380 90C1480 140 1440 0 1440 0H0C50 30 70 70 120 100Z" fill="#ffd54f" opacity="0.6"/>
+                
+                <!-- Patrones e Ilustraciones lineales simulando garabatos hechos a mano -->
+                <!-- Lunas decorativas y espirales -->
+                <circle cx="80" cy="30" r="15" stroke="#111111" stroke-width="3" stroke-dasharray="2,4"/>
+                <path d="M150 10C170 30 160 60 190 70" stroke="#111111" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="280" cy="70" r="10" fill="#ffd54f" stroke="#111111" stroke-width="3"/>
+                <path d="M350 20C380 -10 410 40 450 10" stroke="#111111" stroke-width="3.5" stroke-linecap="round"/>
+                
+                <!-- Hojas y abstracciones del centro -->
+                <path d="M550 40C580 20 620 60 650 30C680 0 710 80 750 50" stroke="#111111" stroke-width="4" stroke-linecap="round"/>
+                <path d="M580 80C620 90 660 60 700 80" stroke="#111111" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="820" cy="40" r="18" fill="#2ec4b6" stroke="#111111" stroke-width="3.5"/>
+                <path d="M810 40C810 30 825 25 830 40C830 45 815 45 810 40Z" fill="#ffd54f"/>
+                
+                <!-- Elementos de la derecha -->
+                <path d="M960 70C990 40 1020 90 1060 60" stroke="#111111" stroke-width="4" stroke-linecap="round"/>
+                <path d="M1120 20C1150 50 1190 20 1220 55" stroke="#111111" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="1320" cy="35" r="12" fill="#d81e5b" stroke="#111111" stroke-width="3"/>
+                <path d="M1380 60C1410 80 1430 40 1460 70" stroke="#111111" stroke-width="4"/>
+            </svg>
+            <div class="absolute inset-0 bg-black/10"></div>
+        </div>
+
+        <!-- Contenedor del Menú con Cápsulas Estilo image_e9afeb.png -->
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center relative z-10">
+            <!-- Cápsula del Logo (Izquierda) -->
+            <a href="#" class="flex items-center gap-2 md:gap-3 bg-black/95 px-4 py-2 rounded-full border border-neutral-800 shadow-xl hover:scale-[1.02] transition-transform">
+                <!-- Icono Luna Rosa con Creciente Blanco -->
+                <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-[#d81e5b] flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4 md:w-5 md:h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.3 2a10 10 0 0 0-1.9 19.8 10 10 0 1 1 11.8-11.8 10 10 0 0 0-9.9-8z"/>
+                    </svg>
+                </div>
+                <!-- Nombre de marca con tipografía elegante y color fucsia de la imagen -->
+                <span class="font-serif font-bold text-sm md:text-base tracking-widest text-[#d81e5b]">DE PLAN EN PLAN</span>
             </a>
             
-            <!-- Links de Navegación Escritorio -->
-            <div class="hidden md:flex items-center gap-8 font-semibold text-sm tracking-wider uppercase">
-                <a href="#inicio" class="hover:text-rosegold-500 transition-colors">Inicio</a>
-                <a href="#esencia" class="hover:text-rosegold-500 transition-colors">Esencia</a>
-                <a href="#disciplinas" class="hover:text-rosegold-500 transition-colors">Arte</a>
-                <a href="#galeria" class="hover:text-rosegold-500 transition-colors">Galería</a>
-                <a href="#empoderamiento" class="hover:text-rosegold-500 transition-colors">Inspiración</a>
-                <a href="#contacto" class="bg-rosegold-600 text-white px-5 py-2.5 rounded-full hover:bg-rosegold-500 shadow-md transition-all duration-300">Unirme</a>
+            <!-- Cápsula del Menú de Navegación (Escritorio) -->
+            <div class="hidden md:flex items-center gap-6 bg-black/95 px-6 py-2 rounded-full border border-neutral-800 shadow-xl">
+                <div class="flex items-center gap-6 font-sans font-bold text-[11px] tracking-widest text-[#2ec4b6] uppercase">
+                    <a href="#inicio" class="hover:text-white transition-colors">Inicio</a>
+                    <a href="#esencia" class="hover:text-white transition-colors">Esencia</a>
+                    <a href="#galeria" class="hover:text-white transition-colors">Galería</a>
+                    <a href="#empoderamiento" class="hover:text-white transition-colors">Inspiración</a>
+                </div>
+                <!-- Botón de Acción Unirme de la cápsula -->
+                <a href="#contacto" class="bg-[#d81e5b] text-[#ffd54f] font-sans font-bold text-[11px] tracking-wider uppercase px-5 py-2 rounded-full hover:bg-pink-700 hover:scale-105 transition-all shadow-md">
+                    Unirme
+                </a>
             </div>
 
-            <!-- Botón Móvil -->
-            <button class="md:hidden text-rosegold-600" id="menu-btn" aria-label="Abrir Menú">
-                <i data-lucide="menu" class="w-6 h-6"></i>
+            <!-- Botón de Menú Móvil estilizado en cápsula oscura -->
+            <button class="md:hidden bg-black/95 text-[#2ec4b6] p-2.5 rounded-full border border-neutral-800 shadow-lg" id="menu-btn" aria-label="Abrir Menú">
+                <i data-lucide="menu" class="w-5 h-5"></i>
             </button>
         </div>
 
-        <!-- Menú Móvil Desplegable -->
-        <div class="hidden md:hidden bg-white/95 border-b border-rosegold-100 px-6 py-4 flex flex-col gap-4 text-center font-semibold" id="mobile-menu">
-            <a href="#inicio" class="block py-2 text-rosegold-dark hover:text-rosegold-500" onclick="toggleMenu()">Inicio</a>
-            <a href="#esencia" class="block py-2 text-rosegold-dark hover:text-rosegold-500" onclick="toggleMenu()">Esencia</a>
-            <a href="#disciplinas" class="block py-2 text-rosegold-dark hover:text-rosegold-500" onclick="toggleMenu()">Arte</a>
-            <a href="#galeria" class="block py-2 text-rosegold-dark hover:text-rosegold-500" onclick="toggleMenu()">Galería</a>
-            <a href="#empoderamiento" class="block py-2 text-rosegold-dark hover:text-rosegold-500" onclick="toggleMenu()">Inspiración</a>
-            <a href="#contacto" class="inline-block py-2.5 bg-rosegold-600 text-white rounded-full" onclick="toggleMenu()">Unirme</a>
+        <!-- Menú Móvil Desplegable con Estilo Cápsula Oscura -->
+        <div class="hidden md:hidden absolute top-full left-4 right-4 mt-2 bg-black/95 border border-neutral-800 rounded-2xl p-4 flex flex-col gap-3 text-center font-bold text-xs tracking-widest uppercase z-50 shadow-2xl" id="mobile-menu">
+            <a href="#inicio" class="py-2.5 text-[#2ec4b6] hover:text-white border-b border-neutral-900" onclick="toggleMenu()">Inicio</a>
+            <a href="#esencia" class="py-2.5 text-[#2ec4b6] hover:text-white border-b border-neutral-900" onclick="toggleMenu()">Esencia</a>
+            <a href="#galeria" class="py-2.5 text-[#2ec4b6] hover:text-white border-b border-neutral-900" onclick="toggleMenu()">Galería</a>
+            <a href="#empoderamiento" class="py-2.5 text-[#2ec4b6] hover:text-white border-b border-neutral-900" onclick="toggleMenu()">Inspiración</a>
+            <a href="#contacto" class="block py-3 bg-[#d81e5b] text-[#ffd54f] rounded-full mt-2" onclick="toggleMenu()">Unirme</a>
         </div>
     </nav>
 
@@ -190,14 +235,39 @@
 
         <!-- Título Inspirado en los Posters -->
         <h1 class="font-cursive text-rosegold-600 text-5xl md:text-8xl text-center mb-1 leading-none">
-            De plan en plan
+            De plan en plan mujeres empoderadas.
         </h1>
-        <h2 class="font-serif text-3xl md:text-7xl font-bold tracking-widest text-center mb-6 sparkle-text">
-            DANZA, MAQUILLAJE & ARTESANÍA
+        <h2 class="font-serif text-2xl md:text-5xl font-bold tracking-widest text-center mb-6 sparkle-text">
+            formaciones en DANZA, MAQUILLAJE Y MANUALIDADES.
         </h2>
-        <p class="font-sans text-lg md:text-2xl text-center text-rosegold-dark max-w-3xl font-light leading-relaxed mb-10 px-4">
-            Un espacio sagrado y creativo para brillar, reconectar con tu fuerza femenina y expresar tu historia a través del movimiento, el lienzo de la piel y las creaciones hechas con el corazón.
+        <p class="font-sans text-base md:text-xl text-center text-rosegold-dark max-w-4xl font-light leading-relaxed mb-6 px-4">
+            Un espacio diseñado exclusivamente para impulsar y estructurar los conocimientos adquiridos en las formaciones de Maquillaje, Manualidades y Danza, transformándolos en modelos de emprendimiento sostenibles y rentables. Proporcionamos las herramientas estratégicas necesarias para convertir la técnica en una empresa sólida
         </p>
+
+        <!-- Reproductor de Spotify Sintonizado con la Playlist -->
+        <div class="w-full max-w-xl mx-auto mb-10 px-4 z-10">
+            <div class="bg-white/40 backdrop-blur-md p-4 rounded-2xl border border-rosegold-200/60 shadow-xl flex flex-col gap-2 transform hover:scale-[1.01] transition-all duration-300">
+                <div class="flex items-center gap-2 text-rosegold-600 px-1 mb-1 justify-between">
+                    <span class="flex items-center gap-2 font-serif text-xs md:text-sm tracking-widest uppercase font-bold">
+                        <i data-lucide="music-4" class="w-4 h-4 text-rosegold-gold animate-pulse"></i>
+                        Sintoniza nuestra esencia
+                    </span>
+                    <span class="text-[10px] bg-rosegold-600 text-white font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                        Playlist Oficial
+                    </span>
+                </div>
+                <iframe 
+                    style="border-radius:12px" 
+                    src="https://open.spotify.com/embed/playlist/695TCQoSjmWf8OCkIELMSO?utm_source=generator&theme=0" 
+                    width="100%" 
+                    height="152" 
+                    frameBorder="0" 
+                    allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
 
         <!-- Botones de Acción -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center z-10 w-full max-w-md">
@@ -273,8 +343,8 @@
     <section id="disciplinas" class="py-24 px-6 max-w-7xl mx-auto">
         <div class="text-center mb-16">
             <span class="text-rosegold-gold font-semibold tracking-widest text-sm uppercase block mb-2">Descubre Nuestros Saberes</span>
-            <h2 class="font-serif text-4xl md:text-6xl font-bold tracking-wider text-rosegold-600">Tres Senderos, Una Sola Alma</h2>
-            <div class="w-24 h-1 bg-rosegold-400 mx-auto mt-4 rounded-full"></div>
+            <h2 class="font-serif text-3xl md:text-5xl font-bold tracking-wider text-rosegold-600 leading-tight">Tres formaciones, un solo propósito: emprender para el servicio de la comunidad</h2>
+            <div class="w-24 h-1 bg-rosegold-400 mx-auto mt-6 rounded-full"></div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -579,109 +649,64 @@
         </div>
     </section>
 
-    <!-- Sección de Contacto y Reserva (Inscripciones de talleres) -->
+    <!-- Sección de Contacto y Reserva (Canales directos oficiales sin formulario) -->
     <section id="contacto" class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 bg-white/70 rounded-3xl p-8 md:p-16 border border-rosegold-100 shadow-xl">
+        <div class="bg-white/70 rounded-3xl p-8 md:p-16 border border-rosegold-100 shadow-xl max-w-4xl mx-auto text-center relative overflow-hidden">
+            <!-- Brillos decorativos en el fondo -->
+            <div class="absolute -top-10 -left-10 text-rosegold-200/40 pointer-events-none">
+                <i data-lucide="sparkles" class="w-32 h-32 animate-pulse"></i>
+            </div>
             
-            <!-- Columna Informativa de Talleres -->
-            <div class="lg:col-span-5 flex flex-col justify-between">
-                <div>
-                    <span class="text-rosegold-gold font-semibold tracking-widest text-sm uppercase block mb-2">Comienza tu viaje</span>
-                    <h2 class="font-serif text-3xl md:text-5xl font-bold text-rosegold-600 mb-6 leading-tight">Únete a nuestro círculo de arte</h2>
-                    <p class="text-rosegold-dark font-light leading-relaxed mb-8">
-                        ¿Quieres aprender técnicas de maquillaje, bailar bajo la luna o tejer con sentido? Reserva un lugar en nuestros talleres mensuales o agenda un show artístico para tu evento corporativo/privado.
-                    </p>
-                    
-                    <!-- Información de Contacto Directo -->
-                    <div class="space-y-4 text-sm font-semibold">
-                        <div class="flex items-center gap-4">
-                            <span class="w-10 h-10 rounded-full bg-rosegold-100 flex items-center justify-center text-rosegold-600">
-                                <i data-lucide="mail" class="w-5 h-5"></i>
-                            </span>
-                            <div>
-                                <p class="text-xs text-rosegold-400 uppercase tracking-widest font-normal">Escríbenos</p>
-                                <p class="text-rosegold-dark">hola@deplanenplan.com</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="w-10 h-10 rounded-full bg-rosegold-100 flex items-center justify-center text-rosegold-600">
-                                <i data-lucide="map-pin" class="w-5 h-5"></i>
-                            </span>
-                            <div>
-                                <p class="text-xs text-rosegold-400 uppercase tracking-widest font-normal">Encuéntranos</p>
-                                <p class="text-rosegold-dark">Estudio de Plan en Plan, Colombia</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <span class="text-rosegold-gold font-semibold tracking-widest text-sm uppercase block mb-2">Comienza tu viaje</span>
+            <h2 class="font-serif text-3xl md:text-5xl font-bold text-rosegold-600 mb-6 leading-tight">Únete a nuestro círculo de arte</h2>
+            <p class="text-rosegold-dark font-light leading-relaxed mb-10 max-w-2xl mx-auto">
+                ¿Quieres aprender técnicas de maquillaje, bailar bajo la luna o tejer con sentido? Para asegurar tu cupo de forma rápida y personalizada en nuestros talleres mensuales o agendar una asesoría, comunícate directamente con nosotras. ¡Estamos listas para guiarte en tu senda creativa!
+            </p>
+            
+            <!-- Tarjetas de Enlace Directo -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-10 relative z-10">
+                <!-- Canal 1: Correo Electrónico -->
+                <a href="mailto:hola@deplanenplan.com" class="flex flex-col items-center p-6 bg-white/90 rounded-2xl border border-rosegold-200/60 hover:border-rosegold-400 hover:scale-[1.02] transition-all duration-300 shadow-sm hover:shadow-md">
+                    <span class="w-12 h-12 rounded-full bg-rosegold-100 flex items-center justify-center text-rosegold-600 mb-4">
+                        <i data-lucide="mail" class="w-6 h-6"></i>
+                    </span>
+                    <h3 class="font-serif font-bold text-rosegold-dark mb-1">Escríbenos por Correo</h3>
+                    <p class="text-sm text-rosegold-500 mb-4">hola@deplanenplan.com</p>
+                    <span class="text-xs font-bold text-rosegold-600 uppercase tracking-wider flex items-center gap-1">
+                        Enviar correo <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </span>
+                </a>
 
-                <!-- Redes Sociales inspiradas en los corazones e iconos de los posters -->
-                <div class="mt-12 lg:mt-0 pt-8 border-t border-rosegold-200">
-                    <p class="font-serif text-sm text-rosegold-gold font-bold tracking-widest mb-4 uppercase">Sigue la magia en redes</p>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-11 h-11 rounded-full bg-rosegold-100 text-rosegold-600 hover:bg-rosegold-600 hover:text-white flex items-center justify-center transition-all duration-300">
-                            <i data-lucide="instagram" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="w-11 h-11 rounded-full bg-rosegold-100 text-rosegold-600 hover:bg-rosegold-600 hover:text-white flex items-center justify-center transition-all duration-300">
-                            <i data-lucide="facebook" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="w-11 h-11 rounded-full bg-rosegold-100 text-rosegold-600 hover:bg-rosegold-600 hover:text-white flex items-center justify-center transition-all duration-300">
-                            <i data-lucide="youtube" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                </div>
+                <!-- Canal 2: Instagram Directo -->
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center p-6 bg-white/90 rounded-2xl border border-rosegold-200/60 hover:border-rosegold-400 hover:scale-[1.02] transition-all duration-300 shadow-sm hover:shadow-md">
+                    <span class="w-12 h-12 rounded-full bg-rosegold-100 flex items-center justify-center text-rosegold-600 mb-4">
+                        <i data-lucide="instagram" class="w-6 h-6"></i>
+                    </span>
+                    <h3 class="font-serif font-bold text-rosegold-dark mb-1">Inscríbete por Instagram</h3>
+                    <p class="text-sm text-rosegold-500 mb-4">@deplanenplan</p>
+                    <span class="text-xs font-bold text-rosegold-600 uppercase tracking-wider flex items-center gap-1">
+                        Ir al perfil <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </span>
+                </a>
             </div>
 
-            <!-- Formulario de Inscripción y Contacto -->
-            <div class="lg:col-span-7 bg-white p-8 md:p-12 rounded-2xl border-2 border-rosegold-100 shadow-md">
-                <form id="contact-form" onsubmit="submitForm(event)">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label for="name" class="block text-xs uppercase tracking-widest font-semibold text-rosegold-500 mb-2">Tu Nombre Completo</label>
-                            <input type="text" id="name" required class="w-full bg-rosegold-50 border border-rosegold-200 focus:border-rosegold-500 focus:outline-none rounded-xl px-4 py-3 text-sm text-rosegold-dark transition-colors" placeholder="Ej: Valentina Morales">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-xs uppercase tracking-widest font-semibold text-rosegold-500 mb-2">Correo Electrónico</label>
-                            <input type="email" id="email" required class="w-full bg-rosegold-50 border border-rosegold-200 focus:border-rosegold-500 focus:outline-none rounded-xl px-4 py-3 text-sm text-rosegold-dark transition-colors" placeholder="valen@ejemplo.com">
-                        </div>
-                    </div>
-
-                    <div class="mb-6">
-                        <label for="interest" class="block text-xs uppercase tracking-widest font-semibold text-rosegold-500 mb-2">¿Cuál es tu área de interés?</label>
-                        <select id="interest" required class="w-full bg-rosegold-50 border border-rosegold-200 focus:border-rosegold-500 focus:outline-none rounded-xl px-4 py-3 text-sm text-rosegold-dark transition-colors">
-                            <option value="">-- Elige una senda artística --</option>
-                            <option value="maquillaje">Maquillaje Artístico</option>
-                            <option value="danza">Danza & Círculo Femenino</option>
-                            <option value="manualidades">Manualidades & Tejidos con Amor Propio</option>
-                            <option value="todos">Todos los Planes</option>
-                            <option value="evento">Contratación para Eventos Especiales</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-6">
-                        <label for="message" class="block text-xs uppercase tracking-widest font-semibold text-rosegold-500 mb-2">Cuéntanos un poco de ti</label>
-                        <textarea id="message" rows="4" class="w-full bg-rosegold-50 border border-rosegold-200 focus:border-rosegold-500 focus:outline-none rounded-xl px-4 py-3 text-sm text-rosegold-dark transition-colors" placeholder="Escribe tus intenciones, preguntas o detalles del show que buscas..."></textarea>
-                    </div>
-
-                    <div class="mb-8 flex items-start gap-3">
-                        <input type="checkbox" id="consent" required class="mt-1 accent-rosegold-600 rounded">
-                        <label for="consent" class="text-xs text-rosegold-dark font-light leading-normal">
-                            Acepto recibir invitaciones a talleres exclusivos de empoderamiento y novedades artísticas de De Plan en Plan.
-                        </label>
-                    </div>
-
-                    <button type="submit" class="w-full py-4 bg-rosegold-600 text-white font-semibold rounded-xl shadow-lg hover:bg-rosegold-500 hover:shadow-xl hover:scale-[1.01] transition-all duration-300 tracking-wider">
-                        ENVIAR MI MENSAJE
-                    </button>
-                </form>
-
-                <!-- Toast de éxito hecho con HTML oculto -->
-                <div id="toast-success" class="hidden mt-6 p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-sm flex items-center gap-3">
-                    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-600 shrink-0"></i>
-                    <div>
-                        <p class="font-semibold">¡Mensaje enviado con destellos de éxito!</p>
-                        <p class="font-light text-xs">Te responderemos pronto para planificar juntas tu senda creativa.</p>
-                    </div>
+            <!-- Información Física y Redes Adicionales -->
+            <div class="flex flex-col items-center justify-center pt-8 border-t border-rosegold-200 max-w-xl mx-auto relative z-10">
+                <div class="flex items-center gap-3 text-rosegold-dark text-sm font-semibold mb-6">
+                    <span class="w-8 h-8 rounded-full bg-rosegold-100 flex items-center justify-center text-rosegold-600 shrink-0">
+                        <i data-lucide="map-pin" class="w-4 h-4"></i>
+                    </span>
+                    <span>Estudio de Plan en Plan, Colombia</span>
+                </div>
+                
+                <p class="font-serif text-xs text-rosegold-gold font-bold tracking-widest mb-4 uppercase">Sigue la magia en redes</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-11 h-11 rounded-full bg-rosegold-100 text-rosegold-600 hover:bg-rosegold-600 hover:text-white flex items-center justify-center transition-all duration-300">
+                        <i data-lucide="facebook" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="w-11 h-11 rounded-full bg-rosegold-100 text-rosegold-600 hover:bg-rosegold-600 hover:text-white flex items-center justify-center transition-all duration-300">
+                        <i data-lucide="youtube" class="w-5 h-5"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -690,12 +715,14 @@
     <!-- Pie de Página (Footer) -->
     <footer class="bg-rosegold-dark text-rosegold-100 py-16 px-6 text-center border-t border-rosegold-600/30">
         <div class="max-w-4xl mx-auto flex flex-col items-center">
-            <!-- Logo Moon Decorativo -->
-            <svg class="w-12 h-12 text-rosegold-gold mb-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12.3 2a10 10 0 0 0-1.9 19.8 10 10 0 1 1 11.8-11.8 10 10 0 0 0-9.9-8z"/>
-            </svg>
+            <!-- Logo De Plan en Plan Oficial -->
+            <div class="mb-6 hover:scale-105 transition-transform duration-300">
+                <img src="Logo Plan en Plan.jpg" alt="Logo De Plan en Plan" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover mx-auto shadow-2xl border-4 border-rosegold-gold/30" onerror="this.onerror=null; this.src='https://placehold.co/160x160/111111/ffd54f?text=De+Plan+En+Plan'">
+            </div>
             <h3 class="font-serif text-2xl font-bold tracking-widest text-rosegold-gold mb-2">DE PLAN EN PLAN</h3>
-            <p class="font-cursive text-3xl text-rosegold-200 mb-6">Arte, sororidad y magia hecha a mano.</p>
+            <a href="https://www.instagram.com/de_plan_en_plan_/" target="_blank" rel="noopener noreferrer" class="font-cursive text-3xl text-rosegold-200 hover:text-rosegold-gold hover:scale-105 transition-all duration-300 mb-6 inline-flex items-center gap-3">
+                Síguenos en Instagram <i data-lucide="instagram" class="w-8 h-8"></i>
+            </a>
             
             <div class="w-24 h-0.5 bg-rosegold-500/50 mb-8"></div>
 
@@ -795,22 +822,6 @@
                     }
                 }
             });
-        }
-
-        // Simulación de envío de formulario sin alerts
-        function submitForm(event) {
-            event.preventDefault();
-            const form = document.getElementById('contact-form');
-            const toast = document.getElementById('toast-success');
-            
-            // Animación de envío exitoso
-            toast.classList.remove('hidden');
-            form.reset();
-
-            // Ocultar el toast automáticamente tras 6 segundos
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 6000);
         }
     </script>
 </body>
